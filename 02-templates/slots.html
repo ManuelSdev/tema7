@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Templates & slots</title>
+</head>
+
+<body>
+  <!-- Defino una plantilla para pintar mis definiciones -->
+
+  <template id="sample-template">
+    <style>
+
+    </style>
+    <details>
+      <summary>
+        <span>
+          <code class="name">
+            <slot name="element-name">NECESITA UN NOMBRE</slot>
+          </code>
+          <i class="desc">
+            <slot name="description">NECESITA UN NOMBRE</slot>
+          </i>
+        </span>
+      </summary>
+      <div class="attributes">
+        <h4><span>Atributos</span></h4>
+        <slot name="attributes">
+          <p>Ninguno</p>>
+        </slot>
+      </div>
+    </details>
+    <hr />
+  </template>
+  <!--Defino un cElement para que consuma la plantilla-->
+  <script>
+    customElements.define(
+      'sample-element', class extends HTMLElement {
+      constructor() {
+        super()
+      }
+      connectedCallback() {
+        //de la plantilla, picamos el contenido/content
+        const template = document.getElementById('sample-element').content
+        //ahora genero nodo
+        const node = document.importNode(template, true);
+        //agrego el nodo al html de mi clase/componente
+        this.appendChild(node)
+      }
+    }
+    )
+  </script>
+  <!--Consumo la plantilla a través del cElement-->
+  <sample-element>
+    <span slot="element-name">slot</span>
+    <span slot="description">
+      Un marcador de posición dentro de un componente web que los usuarios
+      pueden rellenar con su propio marcado, con el efecto de componer
+      diferentes árboles DOM juntos.
+    </span>
+    <dl slot="attributes">
+      <dt>name</dt>
+      <dd>El atributo name del slot.</dd>
+
+      <dt>description</dt>
+      <dd>La descripción del término incluido en <i>name</i>.</dd>
+
+      <dt>attributes</dt>
+      <dd>Para explicar las tres posiciones de slot.</dd>
+    </dl>
+  </sample-element>
+</body>
+
+</html>
