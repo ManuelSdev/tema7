@@ -13,7 +13,23 @@
 
   <template id="sample-template">
     <style>
+      details {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .name {
+        font-weight: bold;
+        color: #217ac0;
+        font-size: 120%;
+      }
+      h4 {
+        margin: 10px 0 -8px 0;
+      }
 
+      h4 span {
+        background-color: #217ac0;
+        color: white;
+        padding: 5px;
+      }
     </style>
     <details>
       <summary>
@@ -44,23 +60,24 @@
       }
       connectedCallback() {
         //de la plantilla, picamos el contenido/content
-        const template = document.getElementById('sample-element').content
-        //ahora genero nodo
+        const template = document.getElementById('sample-template').content
+        //hago duplicado en el documento
         const node = document.importNode(template, true);
-        //agrego el nodo al html de mi clase/componente
-        this.appendChild(node)
+        // creo un shadow DOM para el contenido del custom element
+
+        const shadowRoot = this.attachShadow({ mode: 'open' });
+        // agrego la copia del contenido de la plantilla en
+        // el shadow DOM del custom element
+        shadowRoot.appendChild(node);
       }
     }
     )
   </script>
   <!--Consumo la plantilla a través del cElement-->
+
   <sample-element>
-    <span slot="element-name">slot</span>
-    <span slot="description">
-      Un marcador de posición dentro de un componente web que los usuarios
-      pueden rellenar con su propio marcado, con el efecto de componer
-      diferentes árboles DOM juntos.
-    </span>
+
+
     <dl slot="attributes">
       <dt>name</dt>
       <dd>El atributo name del slot.</dd>
@@ -71,7 +88,15 @@
       <dt>attributes</dt>
       <dd>Para explicar las tres posiciones de slot.</dd>
     </dl>
+    <span slot="description">
+      Un marcador de posición dentro de un componente web que los usuarios
+      pueden rellenar con su propio marcado, con el efecto de componer
+      diferentes árboles DOM juntos.
+    </span>
+    <span slot="element-name">slot</span>
   </sample-element>
+
+
 </body>
 
 </html>
