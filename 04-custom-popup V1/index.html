@@ -14,12 +14,15 @@
         button.addEventListener('click', (e) => {
           const wrapper = document.querySelector('.wrapper');
           const btnClose = document.querySelector('.close');
+          const hadFocus = document.activeElement;
 
           // Abrir el popup agregando la clase .open
           wrapper.classList.add('open');
+          btnClose.focus();
 
           btnClose.addEventListener('click', () => {
             wrapper.classList.remove('open');
+            hadFocus.focus();
           });
         });
       </script>
