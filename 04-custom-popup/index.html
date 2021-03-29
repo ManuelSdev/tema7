@@ -4,42 +4,98 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-      #pruebame {
-        background-color: orange;
-        border: 0;
-        color: white;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 1.5rem;
-        padding: 0.5rem 1.5rem;
-        position: static;
-      }
-
-      #title {
-        font-family: Arial, Helvetica, sans-serif;
-      }
-    </style>
   </head>
   <body>
-    <button id="pruebame" class="btn">Pruébame</button>
+    <button class="btn">Hola</button>
 
-    <kc-popup id="mipopup">
-      <span slot="title">Hola keepcoders!</span>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam dolorem
-        non porro ea dolore impedit esse exercitationem provident ab, odit
-        praesentium ratione nostrum fuga molestiae? Consequatur sint tempora
-        doloribus cumque.
-      </p>
-    </kc-popup>
-    <script src="./popup.component.js"></script>
+    <template id="plantilla">
+      <script>
+        const button = document.getElementById('pruebame');
+        button.addEventListener('click', (e) =>
+          alert('Hola, me has pulsado!!')
+        );
+      </script>
 
-    <script>
-      const button = document.getElementById('pruebame');
-      button.addEventListener('click', () => {
-        const popup = document.getElementById('mipopup');
-        popup.open = true;
-      });
-    </script>
+      <style>
+        .wrapper {
+          opacity: 0;
+          transition: visibility 0s, opacity 0.25s ease-in;
+        }
+
+        .wrapper:not(.open) {
+          visibility: hidden;
+        }
+
+        .wrapper.open {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+
+          height: 100vh;
+          width: 100vw;
+          opacity: 1;
+          visibility: visible;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .btn {
+          background-color: orange;
+          border: 0;
+          color: white;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 1.5rem;
+          padding: 0.5rem 1.5rem;
+        }
+
+        /* Estilos del popup */
+        .overlay {
+          background: rgba(0, 0, 0, 0.8);
+          height: 100%;
+          width: 100%;
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+        }
+
+        .dialog {
+          background-color: white;
+          max-width: 500px;
+          padding: 1rem;
+          position: fixed;
+        }
+
+        button {
+          cursor: pointer;
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+        }
+
+        button:focus {
+          border: 2px solid green;
+        }
+      </style>
+
+      <!-- Contenido HTML -->
+      <div class="wrapper">
+        <div class="overlay"></div>
+        <div class="dialog">
+          <button class="close">&times;</button>
+          <h1 id="title">Soy un pop-up</h1>
+          <div class="content" id="content">
+            <p>Y muestro un mensaje de información o alerta.</p>
+          </div>
+        </div>
+      </div>
+      <button id="pruebame" class="btn">Pruébame</button>
+    </template>
+    <script src="./main.js"></script>
   </body>
 </html>
