@@ -11,9 +11,12 @@
     <template id="plantilla">
       <script>
         const button = document.getElementById('pruebame');
-        button.addEventListener('click', (e) =>
-          alert('Hola, me has pulsado!!')
-        );
+        button.addEventListener('click', (e) => {
+          const wrapper = document.querySelector('.wrapper');
+
+          // Abrir el popup agregando la clase .open
+          wrapper.classList.add('open');
+        });
       </script>
 
       <style>
