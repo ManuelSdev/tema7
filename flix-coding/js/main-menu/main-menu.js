@@ -27,6 +27,7 @@ class KcMainMenu extends HTMLElement {
   }
 
   connectedCallback() {
+    //Replica estructura de navbar-list
     this.innerHTML = `
     <template id="menu-item-tpl">
       <li class="navbar-item">
