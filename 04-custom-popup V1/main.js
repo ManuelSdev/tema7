@@ -5,6 +5,7 @@ class KcPopup extends HTMLElement {
   
     constructor() {
       super();
+      this.close = this.close.bind(this);
     }
   
     attributeChangedCallback(attrName, oldValue, newValue) {
@@ -19,6 +20,9 @@ class KcPopup extends HTMLElement {
       const template = document.getElementById('plantilla');
       const node = document.importNode(template.content, true);
       this.appendChild(node);
+  
+      this.querySelector('button').addEventListener('click', this.close);
+      this.querySelector('.overlay').addEventListener('click', this.close);
     }
   
     get open() {
@@ -26,10 +30,17 @@ class KcPopup extends HTMLElement {
     }
   
     set open(isOpen) {
+      this.querySelector('.wrapper').classList.toggle('open', isOpen);
       if (isOpen) {
         this.setAttribute('open', true);
       } else {
         this.removeAttribute('open');
+      }
+    }
+  
+    close() {
+      if (this.open !== false) {
+        this.open = false;
       }
     }
   }
