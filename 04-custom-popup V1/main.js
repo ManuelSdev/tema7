@@ -53,6 +53,9 @@ class KcPopup extends HTMLElement {
       if (this.open !== false) {
         this.open = false;
       }
+  
+      const closeEvent = new CustomEvent('popup-closed');
+      this.dispatchEvent(closeEvent);
     }
   
     _watchEscape(event) {
