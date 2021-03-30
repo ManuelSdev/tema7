@@ -4,10 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      #pruebame {
+        background-color: orange;
+        border: 0;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.5rem;
+        padding: 0.5rem 1.5rem;
+        position: static;
+      }
+    </style>
   </head>
   <body>
-    <button class="btn">Hola</button>
-
     <template id="plantilla">
       <script>
         const button = document.getElementById('pruebame');
@@ -54,15 +63,6 @@
           align-items: center;
         }
 
-        .btn {
-          background-color: orange;
-          border: 0;
-          color: white;
-          font-family: Arial, Helvetica, sans-serif;
-          font-size: 1.5rem;
-          padding: 0.5rem 1.5rem;
-        }
-
         /* Estilos del popup */
         .overlay {
           background: rgba(0, 0, 0, 0.8);
@@ -105,9 +105,12 @@
           </div>
         </div>
       </div>
-      <button id="pruebame" class="btn">Pruébame</button>
     </template>
-    <kc-popup></kc-popup>
+
+    <kc-popup id="mipopup"></kc-popup>
+
+    <button id="pruebame" class="btn">Pruébame</button>
+
     <script src="./main.js"></script>
   </body>
 </html>

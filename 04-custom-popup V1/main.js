@@ -1,20 +1,36 @@
-
-/*
-comento este paso inicial de consumo de plantilla sin cElement para crear ahora un cElement
-//Referencio el contenido de la plantilla
-const template = document.getElementById('plantilla');
-//Importo el clonado del contenido de la plantilla al documento/body directamente 
-document.body.appendChild(document.importNode(template.content, true));
-*/
 class KcPopup extends HTMLElement {
+    static get observedAttributes() {
+      return ['open'];
+    }
+  
     constructor() {
       super();
+    }
+  
+    attributeChangedCallback(attrName, oldValue, newValue) {
+      if (newValue !== oldValue) {
+        // this['value']
+        // this.value
+        this[attrName] = this.hasAttribute(attrName);
+      }
     }
   
     connectedCallback() {
       const template = document.getElementById('plantilla');
       const node = document.importNode(template.content, true);
       this.appendChild(node);
+    }
+  
+    get open() {
+      return this.hasAttribute('open');
+    }
+  
+    set open(isOpen) {
+      if (isOpen) {
+        this.setAttribute('open', true);
+      } else {
+        this.removeAttribute('open');
+      }
     }
   }
   
