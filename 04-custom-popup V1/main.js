@@ -6,6 +6,9 @@ class KcPopup extends HTMLElement {
     constructor() {
       console.log('constructor');
       super();
+  
+      this.attachShadow({ mode: 'open' });
+  
       this.close = this.close.bind(this);
       this._watchEscape = this._watchEscape.bind(this);
     }
@@ -23,15 +26,24 @@ class KcPopup extends HTMLElement {
       console.log('connectedCallback');
       const template = document.getElementById('plantilla');
       const node = document.importNode(template.content, true);
-      this.appendChild(node);
+      // this.appendChild(node);
+      this.shadowRoot.appendChild(node);
   
-      this.querySelector('button').addEventListener('click', this.close);
-      this.querySelector('.overlay').addEventListener('click', this.close);
+      this.shadowRoot
+        .querySelector('button')
+        .addEventListener('click', this.close);
+      this.shadowRoot
+        .querySelector('.overlay')
+        .addEventListener('click', this.close);
     }
   
     disconnectedCallback() {
-      this.querySelector('button').removeEventListener('click', this.close);
-      this.querySelector('.overlay').removeEventListener('click', this.close);
+      this.shadowRoot
+        .querySelector('button')
+        .removeEventListener('click', this.close);
+      this.shadowRoot
+        .querySelector('.overlay')
+        .removeEventListener('click', this.close);
     }
   
     get open() {
@@ -39,7 +51,7 @@ class KcPopup extends HTMLElement {
     }
   
     set open(isOpen) {
-      this.querySelector('.wrapper').classList.toggle('open', isOpen);
+      this.shadowRoot.querySelector('.wrapper').classList.toggle('open', isOpen);
       if (isOpen) {
         this.setAttribute('open', true);
         document.addEventListener('keydown', this._watchEscape);

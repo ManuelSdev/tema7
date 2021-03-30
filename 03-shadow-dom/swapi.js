@@ -5,7 +5,9 @@ class KcSwapi extends HTMLElement {
       this.template = document.getElementById('starwars-films').content;
       //Creamos shadow dom para el contenido del custom element
       this.shadowDom = this.attachShadow({ mode: 'closed' });
-      
+      console.log(this.shadowRoot)
+      console.log(this.shadowDom)
+
     }
     //Hacemos un get para poder pillar desde fuera this._films
     get films() {
