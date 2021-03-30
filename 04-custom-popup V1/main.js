@@ -4,11 +4,14 @@ class KcPopup extends HTMLElement {
     }
   
     constructor() {
+      console.log('constructor');
       super();
       this.close = this.close.bind(this);
+      this._watchEscape = this._watchEscape.bind(this);
     }
   
     attributeChangedCallback(attrName, oldValue, newValue) {
+      console.log('attributeChangedCallback');
       if (newValue !== oldValue) {
         // this['value']
         // this.value
@@ -17,12 +20,18 @@ class KcPopup extends HTMLElement {
     }
   
     connectedCallback() {
+      console.log('connectedCallback');
       const template = document.getElementById('plantilla');
       const node = document.importNode(template.content, true);
       this.appendChild(node);
   
       this.querySelector('button').addEventListener('click', this.close);
       this.querySelector('.overlay').addEventListener('click', this.close);
+    }
+  
+    disconnectedCallback() {
+      this.querySelector('button').removeEventListener('click', this.close);
+      this.querySelector('.overlay').removeEventListener('click', this.close);
     }
   
     get open() {
@@ -33,14 +42,23 @@ class KcPopup extends HTMLElement {
       this.querySelector('.wrapper').classList.toggle('open', isOpen);
       if (isOpen) {
         this.setAttribute('open', true);
+        document.addEventListener('keydown', this._watchEscape);
       } else {
         this.removeAttribute('open');
+        document.removeEventListener('keydown', this._watchEscape);
       }
     }
   
     close() {
       if (this.open !== false) {
         this.open = false;
+      }
+    }
+  
+    _watchEscape(event) {
+      console.log(event);
+      if (event.key === 'Escape') {
+        this.close();
       }
     }
   }
