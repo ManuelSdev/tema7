@@ -67,9 +67,9 @@ class KcPopup extends HTMLElement {
         <div class="overlay"></div>
         <div class="dialog">
           <button class="close">&times;</button>
-          <h1 id="title">Soy un pop-up</h1>
+          <h1 id="title"><slot name="title"></slot></h1>
           <div class="content" id="content">
-            <p>Y muestro un mensaje de información o alerta.</p>
+            <slot></slot>
           </div>
         </div>
       </div>
@@ -91,8 +91,6 @@ class KcPopup extends HTMLElement {
       // this['value']
       // this.value
       this[attrName] = this.hasAttribute(attrName);
-      console.log(this.getAttribute(attrName));
-      this.remo
     }
   }
 
