@@ -24,6 +24,12 @@
     <script>
       const popup = document.getElementById('otro-popup');
       popup.open = true;
+
+      popup.addEventListener('popup-closed', () => {
+        console.log('El popup se ha cerrado');
+        const title = document.getElementById('title');
+        title.innerText = 'Cerrado!!';
+      });
     </script>
   </body>
 </html>
